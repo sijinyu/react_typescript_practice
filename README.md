@@ -16,3 +16,9 @@
   - @babel/preset-env - 바벨로 컴파일시 어떤 타겟으로 지정할지 설정 하는 라이브러리
   - @babel/preset-react - 리액트를 바벨로 컴파일 하기 위한 라이브러리
   - rimraf - Mac ,windows에서 동일한 명령어로 폴더 삭제하기 위한 라이브러리
+- `npm install --save-dev typescript @babel/preset-typescript ts-loader fork-ts-checker-webpack-plugin tslint tslint-react`
+  - typescript: Typescript(타입스크립트)를 사용합니다
+  - @babel/preset-typescript: babel(바벨)에서 Typescript(타입스크립트)를 빌드하기 위한 라이브러리입니다.
+  - ts-loader: Webpack(웹팩)에서 Typescript(타입스크립트)를 컴파일 하기 위해 필요한 라이브러리입니다.
+  - fork-ts-checker-webpack-plugin: ts-loader의 성능을 향상시키기 위한 라이브러리입니다.
+  - tslint, tslint-react: 코딩 컨벤션을 체크하기 위한 라이브러리입니다.

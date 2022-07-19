@@ -2,8 +2,12 @@ const path = require("path"); //절대 경로를 참조하기 위해 Path를 불
 
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // Webpack(웹팩)에서 HTML을 다루기위한 플러그인을 불러옵니다
 
+// For Typescript
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+
 module.exports = {
   entry: {
+    // For Typescript
     "js/app": ["./src/App.jsx"], //번들 파일(bundle)로 만들기 위한 시작 파일(entry)을 설정하였습니다. 생성될 번들 파일(bundle)은 js 폴더 하위에 app.js라는 이름으로 생성될 것이며 이 파일은 ./src/App.jsx를 시작으로 번들링(하나로 합치기)합니다.
   },
   output: {
@@ -12,17 +16,28 @@ module.exports = {
   },
   module: {
     rules: [
+      // For Typescript
       {
-        test: /\.(js|jsx)$/,
-        use: ["babel-loader"],
+        test: /\.(ts|tsx)&/,
+        use: [
+          "babel-loader",
+          {
+            loader: "ts-loader", // ts-loader를 추가하였습니다. ts-loader의 옵션은 성능 향상을 위한 옵션
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],
   }, //React(리액트) 파일인 jsx와 js는 babel(바벨)을 이용하여 빌드합니다.
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/index.html", //마지막으로 ./src/index.html 파일을 dist 경로에 index.html로 파일을 생성합니다. 파일을 생성할 때, Webpack(웹팩)이 만든 번들 파일(/js/app.js)를 HTML에 추가하여 생성합니다.
       filename: "index.html",
     }),
-  ], //마지막으로 ./src/index.html 파일을 dist 경로에 index.html로 파일을 생성합니다. 파일을 생성할 때, Webpack(웹팩)이 만든 번들 파일(/js/app.js)를 HTML에 추가하여 생성합니다.
+    // For typescript
+    new ForkTsCheckerWebpackPlugin({ silent: true }), // Typescript(타입스크립트)를 빌드할 때 성능을 향상시키기 위한 플러그인를 불러왔습니다.
+  ],
 };
